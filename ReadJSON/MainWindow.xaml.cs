@@ -51,7 +51,7 @@ namespace ReadJSON
 
         public void getWeatherData()
         {
-            string url = "https://data.buienradar.nl/2.0/feed/json";
+            string url = Properties.Settings.Default.URI; 
             httpRequest = WebRequest.Create(url);
             httpRequest.BeginGetResponse(new AsyncCallback(FinishWebRequest), null);
         }
@@ -62,11 +62,7 @@ namespace ReadJSON
             string r = null;
             using (StreamReader str = new StreamReader(resp.GetResponseStream()))
             {
-                
-
-                
                 r = str.ReadToEnd();
-                
                 JObject o = JObject.Parse(r);
                 JToken JSONStations = o.SelectToken("actual.stationmeasurements");
                 foreach(JToken item in JSONStations)
@@ -74,7 +70,7 @@ namespace ReadJSON
                     Debug.WriteLine(item);
                     cStation station = JsonConvert.DeserializeObject<cStation>(item.ToString());
                     _stations.Add(station);
-
+                   
                 }
 
             }

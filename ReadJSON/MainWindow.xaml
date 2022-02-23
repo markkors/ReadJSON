@@ -8,6 +8,9 @@
         Title="Het weer vandaag"
         Height="450"
         Width="800">
+    <Window.Resources>
+        <local:BelowZeroToVisibilityConverter x:Key="z2vconv" />
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="81*" />
@@ -36,8 +39,10 @@
                     Grid.ColumnSpan="3">
             <Label Content="{Binding stationname}" />
             <Label Content="{Binding temperature}"
-                   ContentStringFormat="{}{0}°C" />
+                   ContentStringFormat="{}{0}°C"
+                   Visibility="{Binding temperature, Converter={StaticResource z2vconv}}"/>
             <Label Content="{Binding weatherdescription}" />
+            <Image Source="{Binding iconurl}" Width="25" Height="25"  HorizontalAlignment="Left" />
 
         </StackPanel>
     </Grid>
