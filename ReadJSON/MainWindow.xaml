@@ -1,0 +1,44 @@
+﻿<Window x:Class="ReadJSON.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReadJSON"
+        mc:Ignorable="d"
+        Title="Het weer vandaag"
+        Height="450"
+        Width="800">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="81*" />
+            <ColumnDefinition Width="68*" />
+            <ColumnDefinition Width="237*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Grid.ColumnSpan="3">
+            <Label Content="Selecteer een weerstation" />
+            <ComboBox VerticalAlignment="Top"
+                      ItemsSource="{Binding stations}"
+                      DisplayMemberPath="stationname"
+                      SelectedValuePath="stationid"
+                      Name="cmbStation">
+
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    DataContext="{Binding SelectedStation}"
+                    Grid.ColumnSpan="3">
+            <Label Content="{Binding stationname}" />
+            <Label Content="{Binding temperature}"
+                   ContentStringFormat="{}{0}°C" />
+            <Label Content="{Binding weatherdescription}" />
+
+        </StackPanel>
+    </Grid>
+</Window>
